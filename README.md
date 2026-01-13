@@ -91,8 +91,6 @@ The Gold layer aggregates the clean data from Silver, producing curated tables f
 **Versioning Advantage**
 If there's a need to recover previous versions or perform audits, the Bronze layer offers full history through Delta versioning and CDF. The Silver layer focuses on delivering only the latest valid version, reducing complexity and storage costs while ensuring analytical efficiency.
 
-
-
 ---
 
 ## ⚙️ Orchestration with Airflow

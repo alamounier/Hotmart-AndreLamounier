@@ -70,9 +70,12 @@ Hotmart-AndreLamounier/
 
 ### Configuração do Ambiente
 1. Clone ou navegue para o diretório do projeto.
-2. Execute `docker compose up -d` para iniciar o container Spark.
-3. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
-4. Acesso o Spark UI em `localhost:4040`
+2. Acesse a pasta infra e execute:
+  2.1 `docker compose build
+  2.2 `docker compose up -d` para iniciar o container Spark.
+3. Execute `docker compose up -d` para iniciar o container Spark.
+4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
+5. Acesso o Spark UI em `localhost:4040` (Opcional)
 
 ## Como Executar
 
@@ -81,11 +84,7 @@ Hotmart-AndreLamounier/
 2. **Silver Layer**: Após Bronze, execute os notebooks Silver correspondentes.
 3. **Gold Layer**: Após Silver, execute o notebook Gold_GVM.
 
-### Scripts de Produção
-- Desenvolva scripts Python/Scala baseados nos notebooks para execução automatizada.
-- Utilize ferramentas como Apache Airflow ou cron jobs para orquestração diária em D-1.
-
-## Estrutura de Dados
+## Resultados
 
 ### Tabelas Bronze
 - **product_item**: Colunas como `product_id`, `item_id`, `transaction_date`, etc.

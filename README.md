@@ -2,7 +2,9 @@
 
 ## Observações
   Não foi possível configurar, dentro do prazo, o ambiente necessário para utilizar a engine Delta Lake no Spark. Essa seria a abordagem ideal, pois facilitaria a implementação de operações de merge e o gerenciamento incremental dos dados no Data Lake.
+  
 Diante dessa limitação, optei por utilizar Parquet como formato de armazenamento das tabelas do Data Lake, simulando os processos de merge por meio de union e deduplicação com window functions.
+
   Além disso, o cenário ideal incluiria a configuração de um orquestrador, como o Airflow, para explicitar as dependências entre as etapas do pipeline (Bronze → Silver → Gold), controlar execuções incrementais e garantir observabilidade do processo. Neste projeto, apresento apenas a proposta teórica de como essa orquestração poderia ser estruturada, considerando os pré-requisitos definidos.
 
 ## Descrição do Projeto
@@ -42,11 +44,10 @@ Hotmart-AndreLamounier/
     ├── Dockerfile               # Configuração do container Spark
     ├── docker-compose.yml       # Orquestração de serviços
 ├── workspace/                   # Dados processados
-│   ├── data_lake/
+│   ├── data_lake/               # Data Lake
 │   │   ├── bronze/              # Dados brutos
 │   │   ├── silver/              # Dados transformados
-│   │   └── gold/                # Dados agregados
-├── Workspace/                     # Notebooks de desenvolvimento
+│   │   └── gold/                # Dados negócio
 │   ├── Notebooks
 │     ├── Bronze
 │       ├── Bronze_Product-Item.ipynb

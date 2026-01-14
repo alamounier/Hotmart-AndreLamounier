@@ -3,7 +3,7 @@
 ## Observações
   Não foi possível configurar, dentro do prazo, o ambiente necessário para utilizar a engine Delta Lake no Spark. Essa seria a abordagem ideal, pois facilitaria a implementação de operações de merge e o gerenciamento incremental dos dados no Data Lake.
   
-Diante dessa limitação, optei por utilizar Parquet como formato de armazenamento das tabelas do Data Lake, simulando os processos de merge por meio de union e deduplicação com window functions.
+  Diante dessa limitação, optei por utilizar Parquet como formato de armazenamento das tabelas do Data Lake, simulando os processos de merge por meio de union e deduplicação com window functions.
 
   Além disso, o cenário ideal incluiria a configuração de um orquestrador, como o Airflow, para explicitar as dependências entre as etapas do pipeline (Bronze → Silver → Gold), controlar execuções incrementais e garantir observabilidade do processo. Neste projeto, apresento apenas a proposta teórica de como essa orquestração poderia ser estruturada, considerando os pré-requisitos definidos.
 
@@ -17,6 +17,7 @@ Diante dessa limitação, optei por utilizar Parquet como formato de armazenamen
 ### Bronze Layer
 - **Propósito**: Ingestão de dados brutos diretamente das fontes de eventos.
 - **Características**: Dados são armazenados no formato original, sem transformações significativas, apenas ajuste de schema. Inclui tratamento básico de inconsistências.
+- **Escrita**: Incremental
 - **Tabelas**:
   - `product_item`: Dados de itens de produtos.
   - `purchase`: Dados de compras.
@@ -25,14 +26,16 @@ Diante dessa limitação, optei por utilizar Parquet como formato de armazenamen
 ### Silver Layer
 - **Propósito**: Limpeza, normalização e enriquecimento dos dados.
 - **Características**: Dados são validados, duplicatas removidas e tipos de dados padronizados.
+- **Lógica**: União da tabela atual com novos dados da bronze em relação a última execução e deduplicação com window functions.
+- **Escrita**: Sobrescrita
 - **Tabelas**:
   - `product_item`: Dados limpos de itens de produtos.
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
 
 ### Gold Layer
-- **Propósito**: Agregações e métricas analíticas prontas para consumo.
-- **Características**: construção de visões analíticas e relacionamentos entre entidades, voltados para responder perguntas de negócio.
+- **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
+- **Características**: Construídas a partir de relacionamentos de tabelas da camada silver, agregadas ou analíticas.
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
 

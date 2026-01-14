@@ -1,4 +1,4 @@
-# Hotmart Data Lakehouse Project
+# Hotmart Data Lake Project
 
 ## Observações
   Não foi possível configurar, dentro do prazo, o ambiente necessário para utilizar a engine Delta Lake no Spark. Essa seria a abordagem ideal, pois facilitaria a implementação de operações de merge e o gerenciamento incremental dos dados no Data Lake.

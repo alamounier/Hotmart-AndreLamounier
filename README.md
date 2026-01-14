@@ -80,24 +80,25 @@ Hotmart-AndreLamounier/
 4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
 5. Acesso o Spark UI em `localhost:4040` (Opcional)
 
-## Como Executar
 
-### Orquestramento
-1. **Bronze Layer**: Execute os notebooks Bronze em ordem (Product-Item, Purchase, Purchase-Extra-Info).
-2. **Silver Layer**: Após Bronze, execute os notebooks Silver correspondentes.
-3. **Gold Layer**: Após Silver, execute o notebook Gold_GVM.
+## Orquestração
+Aqui imaginado a utilização do Airflow:
+
+1. **Bronze Layer**: As ingestões das tabelas `purchase`, `product_item` e `purchase_extra_info` são independentes entre si e podem ser executadas em paralelo.
+2. **Silver Layer**: Cada tabela Silver depende exclusivamente de sua respectiva tabela Bronze.
+3. **Gold Layer**: A tabela GMV depende da conclusão de todas as tabelas Silver.
+
+**No Airflow ficaria algo do tipo**:
+
+bronze_purchase >> silver_purchase
+bronze_product_item >> silver_product_item
+bronze_purchase_extra_info >> silver_purchase_extra_info
+
+[
+    silver_purchase,
+    silver_product_item,
+    silver_purchase_extra_info
+] >> gold_gvm
 
 ## Resultados
 
-### Tabelas Bronze
-- **product_item**: Colunas como `product_id`, `item_id`, `transaction_date`, etc.
-- **purchase**: Colunas como `purchase_id`, `user_id`, `transaction_date`, etc.
-- **purchase_extra_info**: Colunas adicionais relacionadas a compras.
-
-### Tabelas Silver
-- Mesmas tabelas com dados limpos, normalizados e enriquecidos.
-- Adição de colunas de controle: `processed_date`, `version`.
-
-### Tabelas Gold
-- **gvm**: Agregações como soma de valores por período, produto, etc.
-- Colunas: `date`, `product_id`, `total_value`, `version`.

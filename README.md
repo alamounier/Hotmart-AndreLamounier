@@ -87,20 +87,22 @@ Hotmart-AndreLamounier/
 2. **Silver Layer**: Cada tabela Silver depende exclusivamente de sua respectiva tabela Bronze.
 3. **Gold Layer**: A tabela GMV depende da conclusão de todas as tabelas Silver.
 
+### Orquestração no Airflow
+
 O sequenciamento das tasks no Airflow pode ser representado da seguinte forma:
 
 ```python
-
+# Dependências Bronze -> Silver
 bronze_purchase >> silver_purchase
 bronze_product_item >> silver_product_item
 bronze_purchase_extra_info >> silver_purchase_extra_info
 
+# Dependências Silver -> Gold
 [
     silver_purchase,
     silver_product_item,
     silver_purchase_extra_info
 ] >> gold_gvm
-
 ```
 
 ## Resultados

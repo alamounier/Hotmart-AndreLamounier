@@ -81,8 +81,7 @@ Hotmart-AndreLamounier/
 5. Acesso o Spark UI em `localhost:4040` (Opcional)
 
 
-## Orquestração
-Aqui imaginado a utilização do Airflow:
+## Orquestração Airflow
 
 1. **Bronze Layer**: As ingestões das tabelas `purchase`, `product_item` e `purchase_extra_info` são independentes entre si e podem ser executadas em paralelo.
 2. **Silver Layer**: Cada tabela Silver depende exclusivamente de sua respectiva tabela Bronze.

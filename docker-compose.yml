@@ -1,0 +1,43 @@
+services:
+  spark-master-andre:
+    build: .
+    container_name: spark-master-andre
+    command: bash -c "/opt/spark/sbin/start-master.sh && tail -f /opt/spark/logs/spark--org.apache.spark.deploy.master*.out"
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+    networks:
+      - spark-network
+
+  spark-worker-andre:
+    build: .
+    container_name: spark-worker-andre
+    command: bash -c "/opt/spark/sbin/start-worker.sh spark://spark-master-andre:7077 && tail -f /opt/spark/logs/spark--org.apache.spark.deploy.worker*.out"
+    depends_on:
+      - spark-master-andre
+    ports:
+      - "8081:8081"
+    networks:
+      - spark-network
+
+  spark-jupyter-andre:
+    image: jupyter/pyspark-notebook:spark-3.4.1
+    container_name: spark-jupyter-andre
+    environment:
+      - SPARK_MASTER=spark://spark-master-andre:7077
+      - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_TOKEN=1234
+    ports:
+      - "8888:8888"
+      - "4040:4040"
+    volumes:
+      - ./workspace:/home/andre/work
+    depends_on:
+      - spark-master-andre
+      - spark-worker-andre
+    networks:
+      - spark-network
+
+networks:
+  spark-network:
+    driver: bridge

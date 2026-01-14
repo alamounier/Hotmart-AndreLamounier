@@ -81,28 +81,28 @@ Hotmart-AndreLamounier/
 5. Acesso o Spark UI em `localhost:4040` (Opcional)
 
 
-## Orquestração
-Aqui imaginado a utilização do Airflow:
+## Orquestração Airflow
 
 1. **Bronze Layer**: As ingestões das tabelas `purchase`, `product_item` e `purchase_extra_info` são independentes entre si e podem ser executadas em paralelo.
 2. **Silver Layer**: Cada tabela Silver depende exclusivamente de sua respectiva tabela Bronze.
 3. **Gold Layer**: A tabela GMV depende da conclusão de todas as tabelas Silver.
 
-**No Airflow ficaria algo do tipo**:
+O sequenciamento das tasks no Airflow pode ser representado da seguinte forma:
 
+```python
+# Dependências Bronze -> Silver
 bronze_purchase >> silver_purchase
-
 bronze_product_item >> silver_product_item
-
 bronze_purchase_extra_info >> silver_purchase_extra_info
 
+# Dependências Silver -> Gold
 [
     silver_purchase,
-
     silver_product_item,
-
     silver_purchase_extra_info
 ] >> gold_gvm
+yaml
+```
 
 ## Resultados
 

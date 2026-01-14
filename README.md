@@ -62,7 +62,7 @@ Hotmart-AndreLamounier/
 │       ├── Silver_Purchase.ipynb
 │     ├── Gold
 │       └── Gold_GVM.ipynb
-└── README.md                    # Esta documentação
+└── README.md                    
 ```
 
 ## Instalação e Configuração
@@ -100,7 +100,7 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
     silver_purchase,
 
     silver_product_item,
-    
+
     silver_purchase_extra_info
 ] >> gold_gvm
 

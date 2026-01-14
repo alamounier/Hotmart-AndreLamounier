@@ -38,21 +38,26 @@ Diante dessa limitação, optei por utilizar Parquet como formato de armazenamen
 
 ```
 Hotmart-AndreLamounier/
-├── Dockerfile                    # Configuração do container Spark
-├── docker-compose.yml           # Orquestração de serviços
+├── infra                        # Configuração do container Spark
+    ├── Dockerfile               # Configuração do container Spark
+    ├── docker-compose.yml       # Orquestração de serviços
 ├── workspace/                   # Dados processados
 │   ├── data_lake/
 │   │   ├── bronze/              # Dados brutos
 │   │   ├── silver/              # Dados transformados
 │   │   └── gold/                # Dados agregados
-├── Estudos/                     # Notebooks de desenvolvimento
-│   ├── Bronze_Product-Item.ipynb
-│   ├── Bronze_Purchase-Extra-Info.ipynb
-│   ├── Bronze_Purchase.ipynb
-│   ├── Silver_Product-Item.ipynb
-│   ├── Silver_Purchase-Extra-Info.ipynb
-│   ├── Silver_Purchase.ipynb
-│   └── Gold_GVM.ipynb
+├── Workspace/                     # Notebooks de desenvolvimento
+│   ├── Notebooks
+│     ├── Bronze
+│       ├── Bronze_Product-Item.ipynb
+│       ├── Bronze_Purchase-Extra-Info.ipynb
+│       ├── Bronze_Purchase.ipynb
+│     ├── Silver
+│       ├── Silver_Product-Item.ipynb
+│       ├── Silver_Purchase-Extra-Info.ipynb
+│       ├── Silver_Purchase.ipynb
+│     ├── Gold
+│       └── Gold_GVM.ipynb
 └── README.md                    # Esta documentação
 ```
 

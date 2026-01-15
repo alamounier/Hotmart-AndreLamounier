@@ -114,3 +114,38 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 
 ## Resultados
 
+### Exercício 02
+
+- Script do ETL: workspace/notebooks/*
+
+- Create table do dataset final - (DDL):
+
+- Exemplo do dataset final populado:
+![Gold Layer](imgs/datalake_gold.png)
+
+- Consulta SQL, em cima do dataset final que retorne o GMV diário por
+subsidiária:
+```python
+    SELECT 
+        a.transaction_datetime,
+        a.transaction_date,
+        a.purchase_id,
+        a.buyer_id,
+        a.prod_item_id,
+        a.order_date,
+        a.release_date,
+        a.producer_id,
+        b.product_id,
+        b.item_quantity,
+        b.purchase_value,
+        c.subsidiary,
+        current_timestamp() AS snapshot_datetime,
+        DATE(current_timestamp()) AS snapshot_date
+    FROM purchase_silver a
+    LEFT JOIN purchase_extra_info_silver b on a.purchase_id = b.purchase_id and b.is_latest = true
+    LEFT JOIN product_item_silver c on a.purchase_id = c.purchase_id and c.is_latest = true
+    WHERE a.invoiced_status = 'Invoiced'
+        AND a.is_latest = TRUE 
+```
+- Descrição sobre a tech stack que viabiliza a solução;
+

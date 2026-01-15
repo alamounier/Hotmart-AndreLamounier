@@ -15,8 +15,8 @@
 ### Configuração do Ambiente
 1. Clone ou navegue para o diretório do projeto.
 2. Acesse a pasta infra e execute:
-  - 2.1 `docker compose build
-  - 2.2 `docker compose up -d` para iniciar o container Spark.
+    - 2.1 `docker compose build
+    - 2.2 `docker compose up -d` para iniciar o container Spark.
 3. Execute `docker compose up -d` para iniciar o container Spark.
 4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
 5. Acesso o Spark UI em `localhost:4040` (Opcional)
@@ -25,7 +25,7 @@
 
   Este projeto implementa um Data Lake baseado na arquitetura Medalhão (camadas Bronze, Silver e Gold) para processamento e análise de dados de eventos de produtos e compras da plataforma Hotmart. O processamento foi desenvolvido utilizando Apache Spark em ambiente local. 
   A infraestrutura foi configurada com Docker Compose, e o desenvolvimento e execução dos scripts ocorreram por meio de Jupyter Notebook, garantindo reprodutibilidade e isolamento do ambiente.
-  A entrega final será uma tabela no schema `gold` alimentada com snpashots diários para que o usuário consiga navegar pelos resultados de diferentes cargas/dias.
+  ***A entrega final será uma tabela no schema `gold` alimentada com snpashots diários para que o usuário consiga navegar pelos resultados de diferentes cargas/dias***.
 
 ## Arquitetura Medalhão
 

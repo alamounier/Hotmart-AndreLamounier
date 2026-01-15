@@ -23,7 +23,7 @@
   - `purchase`: Dados de compras.
   - `purchase_extra_info`: Informações extras sobre compras.
 
-![Bronze Layer](imgs/datalake_bronze.png)
+![Bronze Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_bronze.png)
 
 
 ### Silver Layer
@@ -36,7 +36,7 @@
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
 
-![Silver Layer](imgs/datalake_silver.png)
+![Silver Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_silver.png)
 
 ### Gold Layer
 - **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
@@ -44,7 +44,7 @@
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
 
-![Gold Layer](imgs/datalake_gold.png)
+![Gold Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_gold.png)
 
 ## Estrutura do Projeto
 
@@ -143,7 +143,7 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 - Create table do dataset final - (DDL):
 
 - Exemplo do dataset final populado:
-![Gold Layer](imgs/datalake_gold.png)
+![Gold Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_gold.png)
 
 - Consulta SQL, em cima do dataset final que retorne o GMV diário por
 subsidiária:

@@ -29,7 +29,7 @@
 ### Silver Layer
 - **Propósito**: Limpeza, normalização e enriquecimento dos dados.
 - **Características**: Dados são validados, duplicatas removidas e tipos de dados padronizados.
-- **Lógica**: União da tabela atual com novos dados da bronze em relação a última execução e deduplicação com window functions.
+- **Lógica**: União da tabela atual com novos dados da bronze em relação ao último registro da tabela bronze armazenado na tabela silver e deduplicação com window functions.
 - **Escrita**: Sobrescrita
 - **Tabelas**:
   - `product_item`: Dados limpos de itens de produtos.

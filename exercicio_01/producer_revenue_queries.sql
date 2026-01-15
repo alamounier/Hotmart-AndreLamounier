@@ -1,34 +1,25 @@
 
 -- =========================================
--- Gold Table: Producer Revenue Analytics
--- Engine: Trino
--- =========================================
-
--- 1. Create Gold table (example schema)
-CREATE TABLE IF NOT EXISTS gold.producer_revenue (
-    producer_id BIGINT,
-    product_id BIGINT,
-    revenue DOUBLE,
-    year INTEGER
-);
-
--- =========================================
 -- Query 1: Top 50 producers by revenue in 2021
 -- =========================================
+
 SELECT
     p.producer_id,
     SUM(pi.item_quantity * pi.purchase_value) AS total_revenue
 FROM purchase p
 JOIN product_item pi
     ON p.prod_item_id = pi.prod_item_id
+    AND p.prod_item_partition = pi.prod_item_partition
 WHERE year(p.order_date) = 2021
+    AND p.release_date IS NOT NULL
 GROUP BY p.producer_id
 ORDER BY total_revenue DESC
 LIMIT 50;
 
 -- =========================================
--- Query 2: Top 2 products by revenue per producer in 2021
+-- Query 2: Top 2 products by revenue per producer
 -- =========================================
+
 WITH product_revenue AS (
     SELECT
         p.producer_id,
@@ -37,7 +28,8 @@ WITH product_revenue AS (
     FROM purchase p
     JOIN product_item pi
         ON p.prod_item_id = pi.prod_item_id
-    WHERE year(p.order_date) = 2021
+        AND p.prod_item_partition = pi.prod_item_partition
+    WHERE p.release_date IS NOT NULL
     GROUP BY p.producer_id, pi.product_id
 ),
 ranked_products AS (

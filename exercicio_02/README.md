@@ -140,6 +140,11 @@ Incremento diário dessa consulta pelo orquestrador.
 
 ***Objetivo***: Usuário terá o campo `snapshot_date` para transitar pelo histórico dos snapshots e o campo transaction_date para coletar os resultados referentes ao dia de importância. Bastando para isso escolher o snapshot de sua preferência.  
 
+Com isso ele acessará o snapshot do dia de sua preferência, que contemplará os registros mais atualizados das tabelas da camada silver: 
+  - `product_item`
+  - `purchase`
+  - `purchase_extra_info`
+
 ```python
     SELECT 
         a.transaction_datetime,

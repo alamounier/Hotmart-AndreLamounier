@@ -23,6 +23,9 @@
   - `purchase`: Dados de compras.
   - `purchase_extra_info`: Informações extras sobre compras.
 
+![Bronze Layer](imgs/datalake_bronze.png)
+
+
 ### Silver Layer
 - **Propósito**: Limpeza, normalização e enriquecimento dos dados.
 - **Características**: Dados são validados, duplicatas removidas e tipos de dados padronizados.
@@ -33,11 +36,15 @@
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
 
+![Silver Layer](imgs/datalake_silver.png)
+
 ### Gold Layer
 - **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
 - **Características**: Construídas a partir de relacionamentos de tabelas da camada silver, agregadas ou analíticas.
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
+
+![Gold Layer](imgs/datalake_gold.png)
 
 ## Estrutura do Projeto
 

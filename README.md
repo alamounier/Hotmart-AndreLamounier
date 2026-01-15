@@ -1,4 +1,4 @@
-# Hotmart Case
+# Hotmart Case - André Lamounier
 
 A resolução dos exercícios encontram-se nas respectivas pastas:
 

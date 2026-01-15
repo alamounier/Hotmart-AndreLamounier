@@ -7,6 +7,20 @@
 
   Além disso, o cenário ideal incluiria a configuração de um orquestrador, como o Airflow, para explicitar as dependências entre as etapas do pipeline (Bronze → Silver → Gold), controlar execuções incrementais e garantir observabilidade do processo. Neste projeto, apresento apenas a proposta teórica de como essa orquestração poderia ser estruturada, considerando os pré-requisitos definidos.
 
+## Instalação e Configuração
+
+### Pré-requisitos do Sistema
+- Docker e Docker Compose instalados.
+
+### Configuração do Ambiente
+1. Clone ou navegue para o diretório do projeto.
+2. Acesse a pasta infra e execute:
+  2.1 `docker compose build
+  2.2 `docker compose up -d` para iniciar o container Spark.
+3. Execute `docker compose up -d` para iniciar o container Spark.
+4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
+5. Acesso o Spark UI em `localhost:4040` (Opcional)
+
 ## Descrição do Projeto
 
   Este projeto implementa um Data Lake baseado na arquitetura Medalhão (camadas Bronze, Silver e Gold) para processamento e análise de dados de eventos de produtos e compras da plataforma Hotmart. O processamento foi desenvolvido utilizando Apache Spark em ambiente local. 
@@ -40,7 +54,7 @@
 ### Gold Layer
 - **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
 - **Características**: Construídas a partir de relacionamentos de tabelas da camada silver, agregadas ou analíticas.
-- **Lógica**: União da tabela atual com novo snapshot das tabelas silver, deduplicação com window functions, garantindo que não haverão registros iguais nos diferentes snapshots.
+- **Lógica**: Snapshot diário. União da tabela atual com o novo snapshot das tabelas silver, deduplicação com window functions, garantindo que não haverão registros iguais nos diferentes snapshots.
 - **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
@@ -81,28 +95,6 @@ exercicio_02/
 │           └── Gold_GVM.ipynb
 └── README.md                                   # Documentação do exercício
 ```
-
-### Estrutura de Dados
-
-- **Bronze**: Dados no formato original com ajustes mínimos de schema; sem transformações significativas
-- **Silver**: Dados validados, tipados corretamente, duplicatas removidas e enriquecidos
-- **Gold**: Tabelas fato e dimensões construídas a partir de relacionamentos Silver
-
-## Instalação e Configuração
-
-### Pré-requisitos do Sistema
-- Docker e Docker Compose instalados.
-
-### Configuração do Ambiente
-1. Clone ou navegue para o diretório do projeto.
-2. Acesse a pasta infra e execute:
-  2.1 `docker compose build
-  2.2 `docker compose up -d` para iniciar o container Spark.
-3. Execute `docker compose up -d` para iniciar o container Spark.
-4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
-5. Acesso o Spark UI em `localhost:4040` (Opcional)
-
-
 ## Orquestração Airflow
 
 1. **Bronze Layer**: As ingestões das tabelas `purchase`, `product_item` e `purchase_extra_info` são independentes entre si e podem ser executadas em paralelo.

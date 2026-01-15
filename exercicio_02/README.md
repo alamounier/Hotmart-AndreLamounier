@@ -38,6 +38,7 @@
   - `product_item`: Dados de itens de produtos.
   - `purchase`: Dados de compras.
   - `purchase_extra_info`: Informações extras sobre compras.
+- **Partição**: transaction_date
 
 ![Bronze Layer](../imgs/datalake_bronze.png)
 
@@ -50,6 +51,7 @@
   - `product_item`: Dados limpos de itens de produtos.
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
+- **Partição**: transaction_date
 
 ![Silver Layer](../imgs/datalake_silver.png)
 
@@ -60,6 +62,7 @@
 - **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
+- **Partição**: snapshot_date/transaction_date
 - ***Campos***:
     -   transaction_datetime        # Data e hora em que o evento de transação ocorreu.
     -   transaction_date            # Data da transação, derivada de transaction_datetime

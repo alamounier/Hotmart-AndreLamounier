@@ -25,7 +25,6 @@
 
 ![Bronze Layer](../imgs/datalake_bronze.png)
 
-
 ### Silver Layer
 - **Propósito**: Limpeza, normalização e enriquecimento dos dados.
 - **Características**: Dados são validados, duplicatas removidas e tipos de dados padronizados.
@@ -110,8 +109,6 @@ exercicio_02/
 2. **Silver Layer**: Cada tabela Silver depende exclusivamente de sua respectiva tabela Bronze.
 3. **Gold Layer**: A tabela GMV depende da conclusão de todas as tabelas Silver.
 
-### Orquestração no Airflow
-
 O sequenciamento das tasks no Airflow pode ser representado da seguinte forma:
 
 ```python
@@ -133,6 +130,9 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 ### Exercício 02
 
 - Script do ETL: Acessar `workspace/notebooks/*`
+  - ./bronze: notebooks referentes a camada bronze
+  - ./silver: notebooks referentes a camada silver
+  - ./gold: notebook referente a camada gold
 
 - Create table do dataset final - (DDL):
 

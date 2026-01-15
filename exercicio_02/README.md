@@ -26,7 +26,7 @@
   
   A infraestrutura foi configurada com Docker Compose, e o desenvolvimento e execução dos scripts ocorreram por meio de Jupyter Notebook, garantindo reprodutibilidade e isolamento do ambiente.
   
-  ***A entrega final será uma tabela no schema `gold` alimentada com snpashots diários para que o usuário consiga navegar pelos resultados de diferentes cargas/dias***.
+  ***A entrega final será uma tabela no schema `gold` alimentada com snapshots diários para que o usuário consiga navegar pelos resultados de diferentes cargas/dias***.
 
 ## Arquitetura Medalhão
 
@@ -60,6 +60,22 @@
 - **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
+- ***Campos***:
+    -   transaction_datetime        # Data e hora em que o evento de transação ocorreu.
+        transaction_date            # Data da transação, derivada de transaction_datetime
+        purchase_id                 # Identificador da compra realizada na plataforma.
+        buyer_id                    # Identificador do comprador que realizou a transação.
+        prod_item_id                # Identificador do item de produto associado à compra.
+        order_date                  # Data em que o pedido foi realizado pelo comprador.
+        release_date                # Data de confirmação/liberação da compra.
+        producer_id                 # Identificador do produtor responsável pelo produto vendido.
+        product_id                  # Identificador do produto comercializado.
+        item_quantity               # Quantidade de unidades do item vendidas na transação.
+        purchase_value              # Valor unitário do item no momento da compra.
+        subsidiary                  # Subsidiária ou unidade de negócio associada à transação.
+        snapshot_datetime           # Data e hora em que o snapshot do dado foi gerado na camada Gold.
+        snapshot_date               # Data do snapshot, utilizada para controle de versões e histórico diário.
+        current_snapshot            # Indicador booleano que identifica se o registro pertence ao snapshot mais recente.
 
 ![Gold Layer](../imgs/datalake_gold.png)
 

@@ -2,14 +2,20 @@
 
 ## Modelo de Dados e Relacionamentos
 
-![Relacionamento](../imgs/exercicio_01_relacionamento.png)
+<div align="center">
+  <img src="../imgs/exercicio_01_relacionamento.png" width="400" alt="Diagrama de Relacionamento entre Tabelas">
+</div>
 
-Conforme o modelo apresentado, a relação entre as tabelas `purchase` e `product_item` é do tipo **1:N**, onde:
+### Estrutura das Tabelas
 
-- Uma compra (`purchase`) pode estar associada a um ou mais itens de produto (`product_item`)
-- Cada item de produto pertence a uma única compra
+A tabela `product_item` possui uma chave primária composta por `prod_item_id` e `prod_item_partition`, estabelecendo um relacionamento com a tabela `purchase` através dessas mesmas chaves.
 
-Essa relação justifica o uso de um **JOIN** entre as tabelas para o cálculo correto do faturamento, garantindo que o valor total de cada compra seja obtido a partir da soma dos itens que a compõem.
+### Considerações para Cálculo
+
+Para garantir a integridade do cálculo de faturamento ao usar **JOIN** entre as tabelas, é essencial que:
+
+- A tabela `purchase` possua registros únicos considerando as chaves `prod_item_id` e `prod_item_partition`
+- O valor total de cada compra seja obtido a partir da **soma dos itens** que a compõem
 
 ---
 
@@ -29,7 +35,7 @@ Quais foram os 50 produtores que mais faturaram na plataforma ao longo de 2021?
 
 ### Lógica de cálculo
 
-1. Realiza-se o **JOIN** entre as tabelas `purchase` e `product_item`, respeitando o relacionamento 1:N
+1. Realiza-se o **JOIN** entre as tabelas `purchase` e `product_item`
 2. O faturamento é calculado por meio da soma de `item_quantity * purchase_value`
 3. Os valores são agregados no nível de produtor
 4. Os produtores são ordenados de forma decrescente pelo faturamento total
@@ -37,10 +43,6 @@ Quais foram os 50 produtores que mais faturaram na plataforma ao longo de 2021?
 ### Resultado esperado
 
 Uma lista ordenada contendo os **50 produtores** com maior faturamento em 2021.
-
-Esta visão permite:
-- Identificar produtores estratégicos
-- Analisar a concentração de receita na plataforma
 
 ---
 
@@ -68,10 +70,3 @@ Quais são os 2 produtos que mais faturaram para cada produtor?
 ### Resultado esperado
 
 Para cada produtor, uma lista contendo seus **2 produtos** com maior faturamento.
-
-Esta análise permite:
-- Identificar produtos-chave do portfólio
-- Avaliar dependência de receita
-- Apoiar decisões estratégicas de negócio
-
-apoiar decisões estratégicas de negócio

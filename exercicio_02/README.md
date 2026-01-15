@@ -30,7 +30,7 @@
 - **Propósito**: Limpeza, normalização e enriquecimento dos dados.
 - **Características**: Dados são validados, duplicatas removidas e tipos de dados padronizados.
 - **Lógica**: União da tabela atual com novos dados da bronze em relação ao último registro da tabela bronze armazenado na tabela silver e deduplicação com window functions.
-- **Escrita**: Sobrescrita
+- **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `product_item`: Dados limpos de itens de produtos.
   - `purchase`: Dados limpos de compras.
@@ -41,8 +41,8 @@
 ### Gold Layer
 - **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
 - **Características**: Construídas a partir de relacionamentos de tabelas da camada silver, agregadas ou analíticas.
-- **Lógica**: União da tabela atual com novo snapshot das tabelas silver, deduplicação com window functions.
-- **Escrita**: Sobrescrita
+- **Lógica**: União da tabela atual com novo snapshot das tabelas silver, deduplicação com window functions, garantindo que não haverão registros iguais nos diferentes snapshots.
+- **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
 
@@ -132,17 +132,13 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 
 ### Exercício 02
 
-- Script do ETL: workspace/notebooks/*
+- Script do ETL: Acessar `workspace/notebooks/*`
 
 - Create table do dataset final - (DDL):
 
-- Exemplo do dataset final populado:
-![Gold Layer](../imgs/datalake_gold.png)
+Incremento diário dessa consulta pelo orquestrador. 
 
-- Consulta SQL, em cima do dataset final que retorne o GMV diário por
-subsidiária:
-
-Incremento diário dessa consulta. Assim o usuário terá o campo `snapshot_date` para transitar pelo histórico e o campo transaction_date para coletar os resultados referentes ao dia de importância. Bastando para isso escolher o 
+***Objetivo***: Usuário terá o campo `snapshot_date` para transitar pelo histórico dos snapshots e o campo transaction_date para coletar os resultados referentes ao dia de importância. Bastando para isso escolher o snapshot de sua preferência.  
 
 ```python
     SELECT 
@@ -166,5 +162,27 @@ Incremento diário dessa consulta. Assim o usuário terá o campo `snapshot_date
     WHERE a.invoiced_status = 'Invoiced'
         AND a.is_latest = TRUE 
 ```
+
+- Exemplo do dataset final populado:
+![Gold Layer](../imgs/datalake_gold.png)
+
+- Consulta SQL, em cima do dataset final que retorne o GMV diário por
+subsidiária:
+
+```python
+df_new_gvm = spark.sql("""
+    SELECT 
+        transaction_date,
+        subsidiary,
+        SUM(item_quantity * purchase_value) AS GVM
+    FROM gvm_gold 
+    WHERE current_snapshot = TRUE
+    GROUP BY 1,2
+""").show()
+```
+
+![Resultado](../imgs/exercicio_02_query_final.png)
+
+
 - Descrição sobre a tech stack que viabiliza a solução;
 

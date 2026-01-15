@@ -1,4 +1,4 @@
-# Hotmart Data Lake Project
+# Exercício 02 - Modelagem e desenvolvimento
 
 ## Observações
   Não foi possível configurar, dentro do prazo, o ambiente necessário para utilizar a engine Delta Lake no Spark. Essa seria a abordagem ideal, pois facilitaria a implementação de operações de merge e o gerenciamento incremental dos dados no Data Lake.

@@ -1,4 +1,4 @@
-# Exercício 1 — Análise de Faturamento
+# Exercício 1 — SQL
 
 ## Modelo de Dados e Relacionamentos
 

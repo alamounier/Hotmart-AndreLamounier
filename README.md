@@ -1,3 +1,5 @@
+# Hotmart Case
+
 A resolução dos exercícios encontram-se nas respectivas pastas:
 
 - exercicio_01

@@ -188,6 +188,29 @@ df_new_gvm = spark.sql("""
 
 ![Resultado](../imgs/exercicio_02_query_final.png)
 
+## Tech Stack
 
-- Descrição sobre a tech stack que viabiliza a solução;
+A solução implementa uma arquitetura de Data Lake moderna com foco em escalabilidade e rastreabilidade dos dados:
+
+| Componente | Tecnologia | Função |
+|-----------|-----------|--------|
+| **Processamento** | Apache Spark | Motor de processamento distribuído para transformações ETL em larga escala |
+| **Desenvolvimento** | Jupyter Notebook | Ambiente interativo para desenvolvimento, testes e documentação dos scripts |
+| **Orquestração** | Apache Airflow (proposta) | Agendamento, monitoramento e gerenciamento de dependências do pipeline |
+| **Containerização** | Docker & Docker Compose | Isolamento e reprodutibilidade do ambiente de execução |
+| **Armazenamento** | Parquet (Delta Lake como alternativa) | Formato colunar otimizado para compressão e desempenho analítico |
+| **Arquitetura** | Medalhão (Bronze → Silver → Gold) | Padrão de design para governança de dados com separação clara de responsabilidades |
+
+### Fluxo de Dados
+
+1. **Bronze**: Ingestão incremental de dados brutos em Parquet
+2. **Silver**: Limpeza, deduplicação com window functions e validação
+3. **Gold**: Agregação final com métricas de negócio (GVM por subsidiária e data)
+
+### Benefícios da Abordagem
+
+- **Rastreabilidade**: Campo `snapshot_date` permite auditoria temporal dos dados
+- **Idempotência**: Processamento repetível através de window functions e deduplicação
+- **Escalabilidade**: Spark permite processamento de grandes volumes de dados
+- **Manutenibilidade**: Separação clara de responsabilidades por camada facilita manutenção e testes
 

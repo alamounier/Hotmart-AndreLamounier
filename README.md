@@ -125,6 +125,9 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 
 - Consulta SQL, em cima do dataset final que retorne o GMV diário por
 subsidiária:
+
+Incremento diário dessa consulta. Assim o usuário terá o campo `snapshot_date` para transitar pelo histórico e o campo transaction_date para coletar os resultados referentes ao dia de importância. Bastando para isso escolher o 
+
 ```python
     SELECT 
         a.transaction_datetime,

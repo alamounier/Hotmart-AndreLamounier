@@ -15,8 +15,8 @@
 ### Configuração do Ambiente
 1. Clone ou navegue para o diretório do projeto.
 2. Acesse a pasta infra e execute:
-  2.1 `docker compose build
-  2.2 `docker compose up -d` para iniciar o container Spark.
+  - 2.1 `docker compose build
+  - 2.2 `docker compose up -d` para iniciar o container Spark.
 3. Execute `docker compose up -d` para iniciar o container Spark.
 4. Acesse o Jupter Notebook em `localhost:8888` - utilizando o `Token`: 1234
 5. Acesso o Spark UI em `localhost:4040` (Opcional)

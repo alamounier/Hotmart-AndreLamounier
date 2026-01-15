@@ -23,7 +23,7 @@
   - `purchase`: Dados de compras.
   - `purchase_extra_info`: Informações extras sobre compras.
 
-![Bronze Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_bronze.png)
+![Bronze Layer](../imgs/datalake_bronze.png)
 
 
 ### Silver Layer
@@ -36,15 +36,17 @@
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
 
-![Silver Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_silver.png)
+![Silver Layer](../imgs/datalake_silver.png)
 
 ### Gold Layer
 - **Propósito**: Tabela resultante da aplicação das regras de negócio, com dados padronizados e organizados, visando facilitar o uso e a interpretação pelas áreas da empresa.
 - **Características**: Construídas a partir de relacionamentos de tabelas da camada silver, agregadas ou analíticas.
+- **Lógica**: União da tabela atual com novo snapshot das tabelas silver, deduplicação com window functions.
+- **Escrita**: Sobrescrita
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
 
-![Gold Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_gold.png)
+![Gold Layer](../imgs/datalake_gold.png)
 
 ## Estrutura do Projeto
 
@@ -80,14 +82,6 @@ exercicio_02/
 │           └── Gold_GVM.ipynb
 └── README.md                                   # Documentação do exercício
 ```
-
-### Descrição das Camadas
-
-| Camada | Propósito | Formato | Padrão de Escrita |
-|--------|-----------|---------|-------------------|
-| **Bronze** | Ingestão bruta de eventos sem transformações | Parquet | Incremental |
-| **Silver** | Limpeza, validação, normalização e deduplicação | Parquet | Sobrescrita |
-| **Gold** | Dados agregados e métricas prontas para análise | Parquet | Sobrescrita |
 
 ### Estrutura de Dados
 
@@ -143,7 +137,7 @@ bronze_purchase_extra_info >> silver_purchase_extra_info
 - Create table do dataset final - (DDL):
 
 - Exemplo do dataset final populado:
-![Gold Layer](/home/andre/projetos/pessoais/Hotmart-AndreLamounier/imgs/datalake_gold.png)
+![Gold Layer](../imgs/datalake_gold.png)
 
 - Consulta SQL, em cima do dataset final que retorne o GMV diário por
 subsidiária:

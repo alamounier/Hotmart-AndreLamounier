@@ -25,6 +25,7 @@
 
   Este projeto implementa um Data Lake baseado na arquitetura Medalhão (camadas Bronze, Silver e Gold) para processamento e análise de dados de eventos de produtos e compras da plataforma Hotmart. O processamento foi desenvolvido utilizando Apache Spark em ambiente local. 
   A infraestrutura foi configurada com Docker Compose, e o desenvolvimento e execução dos scripts ocorreram por meio de Jupyter Notebook, garantindo reprodutibilidade e isolamento do ambiente.
+  A entrega final será uma tabela no schema `gold` alimentada com snpashots diários para que o usuário consiga navegar pelos resultados de diferentes cargas/dias.
 
 ## Arquitetura Medalhão
 
@@ -192,12 +193,6 @@ A solução implementa uma arquitetura de Data Lake moderna com foco em escalabi
 | **Containerização** | Docker & Docker Compose | Isolamento e reprodutibilidade do ambiente de execução |
 | **Armazenamento** | Parquet (Delta Lake como alternativa) | Formato colunar otimizado para compressão e desempenho analítico |
 | **Arquitetura** | Medalhão (Bronze → Silver → Gold) | Padrão de design para governança de dados com separação clara de responsabilidades |
-
-### Fluxo de Dados
-
-1. **Bronze**: Ingestão incremental de dados brutos em Parquet
-2. **Silver**: Limpeza, deduplicação com window functions e validação
-3. **Gold**: Agregação final com métricas de negócio (GVM por subsidiária e data)
 
 ### Benefícios da Abordagem
 

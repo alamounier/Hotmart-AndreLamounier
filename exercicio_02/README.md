@@ -49,34 +49,56 @@
 ## Estrutura do Projeto
 
 ```
-Hotmart-AndreLamounier/
-├── infra                        # Configuração do container Spark
-    ├── Dockerfile               # Configuração do container Spark
-    ├── docker-compose.yml       # Orquestração de serviços
-├── workspace/                   # Dados processados
-│   ├── data_lake/               # Data Lake
-│   │   ├── bronze/              # Dados brutos
-│   │   ├── silver/              # Dados transformados
-│   │   └── gold/                # Dados negócio
-│   ├── Notebooks
-│     ├── Bronze
-│       ├── Bronze_Product-Item.ipynb
-│       ├── Bronze_Purchase-Extra-Info.ipynb
-│       ├── Bronze_Purchase.ipynb
-│     ├── Silver
-│       ├── Silver_Product-Item.ipynb
-│       ├── Silver_Purchase-Extra-Info.ipynb
-│       ├── Silver_Purchase.ipynb
-│     ├── Gold
-│       └── Gold_GVM.ipynb
-└── README.md                    
+exercicio_02/
+├── infra/                                      # Configuração da infraestrutura
+│   ├── Dockerfile                              # Container Spark com Jupyter
+│   ├── docker-compose.yml                      # Orquestração de serviços
+│   └── workspace/                              # Volume compartilhado com dados
+├── workspace/                                  # Dados e notebooks do projeto
+│   ├── data_lake/                              # Repositório de dados estruturado
+│   │   ├── bronze/                             # Camada de ingestão bruta
+│   │   │   ├── product_item/                   # Eventos de itens de produtos
+│   │   │   ├── purchase/                       # Eventos de compras
+│   │   │   └── purchase_extra_info/            # Informações extras de compras
+│   │   ├── silver/                             # Camada de limpeza e normalização
+│   │   │   ├── product_item/                   # Itens de produtos validados
+│   │   │   ├── purchase/                       # Compras limpas e dedupliçadas
+│   │   │   └── purchase_extra_info/            # Extras de compras normalizados
+│   │   └── gold/                               # Camada de dados de negócio
+│   │       └── gvm/                            # Gross Value Metric (métricas finais)
+│   └── notebooks/                              # Scripts Jupyter de processamento
+│       ├── Analyses.ipynb                      # Análises exploratórias
+│       ├── bronze/                             # Notebooks de ingestão
+│       │   ├── Bronze_Product-Item.ipynb
+│       │   ├── Bronze_Purchase-Extra-Info.ipynb
+│       │   └── Bronze_Purchase.ipynb
+│       ├── silver/                             # Notebooks de transformação
+│       │   ├── Silver_Product-Item.ipynb
+│       │   ├── Silver_Purchase-Extra-Info.ipynb
+│       │   └── Silver_Purchase.ipynb
+│       └── gold/                               # Notebooks de agregação
+│           └── Gold_GVM.ipynb
+└── README.md                                   # Documentação do exercício
 ```
+
+### Descrição das Camadas
+
+| Camada | Propósito | Formato | Padrão de Escrita |
+|--------|-----------|---------|-------------------|
+| **Bronze** | Ingestão bruta de eventos sem transformações | Parquet | Incremental |
+| **Silver** | Limpeza, validação, normalização e deduplicação | Parquet | Sobrescrita |
+| **Gold** | Dados agregados e métricas prontas para análise | Parquet | Sobrescrita |
+
+### Estrutura de Dados
+
+- **Bronze**: Dados no formato original com ajustes mínimos de schema; sem transformações significativas
+- **Silver**: Dados validados, tipados corretamente, duplicatas removidas e enriquecidos
+- **Gold**: Tabelas fato e dimensões construídas a partir de relacionamentos Silver
 
 ## Instalação e Configuração
 
 ### Pré-requisitos do Sistema
 - Docker e Docker Compose instalados.
-- Pelo menos 4GB de RAM disponível para o container Spark.
 
 ### Configuração do Ambiente
 1. Clone ou navegue para o diretório do projeto.

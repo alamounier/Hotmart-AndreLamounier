@@ -38,7 +38,7 @@
   - `product_item`: Dados de itens de produtos.
   - `purchase`: Dados de compras.
   - `purchase_extra_info`: Informações extras sobre compras.
-- **Partição**: transaction_date
+- **Partição**: `transaction_date`
 
 ![Bronze Layer](../imgs/datalake_bronze.png)
 
@@ -51,7 +51,7 @@
   - `product_item`: Dados limpos de itens de produtos.
   - `purchase`: Dados limpos de compras.
   - `purchase_extra_info`: Informações extras limpas.
-- **Partição**: transaction_date
+- **Partição**: `transaction_date`
 
 ![Silver Layer](../imgs/datalake_silver.png)
 
@@ -62,23 +62,23 @@
 - **Escrita**: Sobrescrita mantendo histórico
 - **Tabelas**:
   - `gvm` (Gross Value Metric)
-- **Partição**: snapshot_date/transaction_date
+- **Partição**: `snapshot_date`/`transaction_date`
 - ***Campos***:
-    -   transaction_datetime        # Data e hora em que o evento de transação ocorreu.
-    -   transaction_date            # Data da transação, derivada de transaction_datetime
-    -   purchase_id                 # Identificador da compra realizada na plataforma.
-    -   buyer_id                    # Identificador do comprador que realizou a transação.
-    -   prod_item_id                # Identificador do item de produto associado à compra.
-    -   order_date                  # Data em que o pedido foi realizado pelo comprador.
-    -   release_date                # Data de confirmação/liberação da compra.
-    -   producer_id                 # Identificador do produtor responsável pelo produto vendido.
-    -   product_id                  # Identificador do produto comercializado.
-    -   item_quantity               # Quantidade de unidades do item vendidas na transação.
-    -   purchase_value              # Valor unitário do item no momento da compra.
-    -   subsidiary                  # Subsidiária ou unidade de negócio associada à transação.
-    -   snapshot_datetime           # Data e hora em que o snapshot do dado foi gerado na camada Gold.
-    -   snapshot_date               # Data do snapshot, utilizada para controle de versões e histórico diário.
-    -   current_snapshot            # Indicador booleano que identifica se o registro pertence ao snapshot mais recente.
+    -   `transaction_datetime`        # Data e hora em que o evento de transação ocorreu.
+    -   `transaction_date`            # Data da transação, derivada de transaction_datetime
+    -   `purchase_id`                 # Identificador da compra realizada na plataforma.
+    -   `buyer_id`                    # Identificador do comprador que realizou a transação.
+    -   `prod_item_id`                # Identificador do item de produto associado à compra.
+    -   `order_date`                  # Data em que o pedido foi realizado pelo comprador.
+    -   `release_date`                # Data de confirmação/liberação da compra.
+    -   `producer_id`                 # Identificador do produtor responsável pelo produto vendido.
+    -   `product_id`                  # Identificador do produto comercializado.
+    -   `item_quantity`               # Quantidade de unidades do item vendidas na transação.
+    -   `purchase_value`              # Valor unitário do item no momento da compra.
+    -   `subsidiary`                  # Subsidiária ou unidade de negócio associada à transação.
+    -   `snapshot_datetime`           # Data e hora em que o snapshot do dado foi gerado na camada Gold.
+    -   `snapshot_date`               # Data do snapshot, utilizada para controle de versões e histórico diário.
+    -   `current_snapshot`            # Indicador booleano que identifica se o registro pertence ao snapshot mais recente.
 
 ![Gold Layer](../imgs/datalake_gold.png)
 
